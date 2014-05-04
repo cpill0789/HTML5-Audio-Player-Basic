@@ -43,6 +43,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 	public function save($data) {
 		$data['loopAudio'] = intval($data['loopAudio']);
 		$data['autoPlay'] = intval($data['autoPlay']);
+		$data['pauseOthers'] = intval($data['pauseOthers']);
 		$data['useMetaTitle'] = intval($data['useMetaTitle']);
 		parent::save($data);
 	}
@@ -106,7 +107,11 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 			$defaultReady .= '$(this).jPlayer("play");';
 		}
 
-		$defaultPlay = '$(this).jPlayer("pauseOthers");';
+		if ($this->pauseOthers) {
+			$defaultPlay = '$(this).jPlayer("pauseOthers");';
+		} else {
+			$defaultPlay = '';
+		}
 
 		$defaultStandard =	'swfPath: "'.REL_DIR_PACKAGES.'/html5_audio_player_basic/flash/",'
 						 . 	'supplied: "'.$fileTypes.'",'
