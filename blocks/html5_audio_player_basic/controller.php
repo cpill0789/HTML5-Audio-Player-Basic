@@ -1,11 +1,18 @@
-<?php defined('C5_EXECUTE') or die(_("Access Denied."));
-	
-class Html5AudioPlayerBasicBlockController extends BlockController {
-	
+<?php
+namespace Concrete\Package\Html5AudioPlayerBasic\Block\Html5AudioPlayerBasic;
+use \Concrete\Core\Block\BlockController;
+use UserInfo;
+use Loader;
+use Config;
+use Page;
+use View;
+
+class Controller extends BlockController {
+
 	protected $btTable = "btHtml5AudioPlayerBasic";
 	protected $btInterfaceWidth = "500";
 	protected $btInterfaceHeight = "400";
-	
+
 	public function getBlockTypeName() {
 		return t('HTML5 Audio Player Basic');
 	}
@@ -13,47 +20,47 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 	public function getBlockTypeDescription() {
 		return t('Basic HTML5/flash audio player built using the jPlayer jQuery plugin');
 	}
-	
+
 	public function getJavaScriptStrings() {
 		return array(
 			'choose-file' => t('Choose an Audio File')
 		);
 	}
-	
+
 	function getCustomTemplateName() {
 		return $this->getBlockObject()->getBlockFilename();
 	}
-	
+
 	function getBlockPath() {
 		$uh = Loader::helper('concrete/urls');
 		return $uh->getBlockTypeAssetsURL($this->getBlockObject()->getBlockTypeObject());
 	}
-	
-	function on_page_view(){	   
+
+	function view() {
 		$html = Loader::helper('html');
 		$uh = Loader::helper('concrete/urls');
-		
+
 		$this->addHeaderItem($html->javascript('jquery.js'));
 		$this->addHeaderItem($html->css('jquery.ui.css'));
-		$this->addHeaderItem($html->javascript('jquery.ui.js'));	
-		
+		$this->addHeaderItem($html->javascript('jquery.ui.js'));
+
 		$this->addFooterItem($html->javascript('jquery.jplayer.min.js','html5_audio_player_basic'));
 	}
-	
+
 	public function save($data) {
 		$data['loopAudio'] = intval($data['loopAudio']);
 		$data['autoPlay'] = intval($data['autoPlay']);
 		$data['useMetaTitle'] = intval($data['useMetaTitle']);
 		parent::save($data);
 	}
-	
+
 	function getPlayerJavascript($playerType) {
-		
+
 		// calculate values for player initialization
 		$isLooped = ($this->loopAudio == 1) ? "true" : "false";
 		$isAuto = ($this->autoPlay == 1) ? "true" : "false";
 		$volume = $this->initialVolume/100;
-		
+
 		$basePath = $this->getBlockPath();
 
 		$blockID = $this->bID;
@@ -61,72 +68,72 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 
 		$f = File::getByID($this->fID);
 		$fileType = $f->getExtension();
-		if ($fileType == 'ogg') { 
-			$fileType = 'oga'; 
+		if ($fileType == 'ogg') {
+			$fileType = 'oga';
 		}
-		
+
 		$relPath = $f->getRelativePath();
 		$fileTypes = $fileType;
-		
+
 		$f2 = 0;
 		$relPath2 = '';
 		$fileType2 = '';
-		
+
 		$title = $this->title;
-		
+
 		if ($this->secondaryfID > 0) {
 			$f2 = File::getByID($this->secondaryfID);
 			$relPath2 = $f2->getRelativePath();
 			$fileType2 = $f2->getExtension();
-			if ($fileType2 == 'ogg') { 
-				$fileType2 = 'oga'; 
+			if ($fileType2 == 'ogg') {
+				$fileType2 = 'oga';
 			}
 			$fileTypes .= ', '.$fileType2;
-			
+
 		}
-		
-		if ($this->metaCategory == 'TITLE') { 
-			$title = $f->getTitle(); 
+
+		if ($this->metaCategory == 'TITLE') {
+			$title = $f->getTitle();
 		}
-		if ($this->metaCategory == 'DESCRIPTION') { 
-			$title = $f->getDescription(); 
+		if ($this->metaCategory == 'DESCRIPTION') {
+			$title = $f->getDescription();
 		}
-		
-		
+
+
 		$fileInfo =	'{'.$fileType.':"'.$relPath.'",'.'title:"'.$title.'"';
 		if ($this->secondaryfID > 0) {
 			$fileInfo .= ','.$fileType2.':"'.$relPath2.'"';
 		}
 		$fileInfo .= '}';
-		
+
 		// Player event callback default values
 		$defaultReady = '$(this).jPlayer("setMedia",'.$fileInfo.');'
 					   . '$("#'.$defaultAncestor.' .jp-current-title").html($(this).data("jPlayer").status.media.title);';
 		if ($this->autoPlay) {
 			$defaultReady .= '$(this).jPlayer("play");';
 		}
-		
+
 		$defaultPlay = '$(this).jPlayer("pauseOthers");';
-					
+
 		$defaultStandard =	'swfPath: "'.REL_DIR_PACKAGES.'/html5_audio_player_basic/flash/",'
 						 . 	'supplied: "'.$fileTypes.'",'
 						 . 	'wmode: "window",'
 						 . 	'volume: '.$volume.','
 						 . 	'loop: '.$isLooped.',';
-		
+
 		// Assemble Player Javascript
 		$playerScript = '<script type="text/javascript">$(document).ready(function(){';
-		
-		if ($playerType == 'STANDARD') {	
-		
+
+		if ($playerType == 'STANDARD') {
+
 			// Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
-			
+
 			$playerScript .= '$("#jquery_jplayer_'.$blockID.'").jPlayer({'
 						   .	'ready: function (event) { '
 						   .		$defaultReady;
 			if ($title == '') {
-				$playerScript .= '$("#'.$defaultAncestor.' .jp-title").hide();';		   	
-			}		
+				$playerScript .= '$("#'.$defaultAncestor.' .jp-title").hide();';
+			}
 			$playerScript .= 	'},'
 						   . 	'play: function(event) {'
 						   .		$defaultPlay
@@ -135,16 +142,16 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 						   . 	'cssSelectorAncestor: "#'.$defaultAncestor.'"'
 						   . '});'
 						. '});</script>';
-	
+
 		} else if ($playerType == 'BASIC') {
-			
+
 			// Javascript for Basic player
 			$playerScript .= '$("#jquery_jplayer_'.$blockID.'").jPlayer({'
 						   .	'ready: function (event) { '
 						   .		$defaultReady;
 			if ($title == '') {
-				$playerScript .= '$("#'.$defaultAncestor.' .jp-title").hide();';		   	
-			}		
+				$playerScript .= '$("#'.$defaultAncestor.' .jp-title").hide();';
+			}
 			$playerScript .= 	'},'
 						   . 	'play: function(event) {'
 						   .		$defaultPlay
@@ -163,9 +170,9 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 						   . 	'cssSelectorAncestor: "#'.$defaultAncestor.'"'
 						   . '});'
 						. '});</script>';
-						
+
 		} else if ($playerType == 'CIRCLE') {
-			
+
 			// Javascript for Circle player
 			$playerScript .= 'var myCirclePlayer = new CirclePlayer("#jquery_jplayer_'.$blockID.'",'
 						   .	$fileInfo.','
@@ -174,11 +181,11 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 						   . 	'cssSelectorAncestor: "#cp_container_'.$blockID.'"'
 						   . '});'
 						. '});</script>';
-						
-		} else if ($playerType == 'JQUERYUI') {			
-			
+
+		} else if ($playerType == 'JQUERYUI') {
+
 			// Javascript for jQuery UI player
-			
+
 			/*
 			 * jQuery UI ThemeRoller
 			 *
@@ -189,7 +196,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 			 * ie., The timeupdates are ignored for 1000ms after changing the play-head.
 			 * Alternative solution would be to use the slider option: {animate:false}
 			 */
-			
+
 			$playerScript .= 'var myPlayer = $("#jquery_jplayer_'.$blockID.'");'
 						   . 'var myPlayerData, fixFlash_mp4, fixFlash_mp4_id, ignore_timeupdate;'
 						   . 'var options = {'
@@ -202,7 +209,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 									// Determine if Flash is being used and the mp4 media type is supplied. BTW, Supplying both mp3 and mp4 is pointless.
 						   .		'fixFlash_mp4 = event.jPlayer.flash.used && /m4a|m4v/.test(event.jPlayer.options.supplied);'
 									// Setup the player with media.
-						   .		$defaultReady					
+						   .		$defaultReady
 						   . 	'},'
 						   . 	'timeupdate: function(event) {'
 						   . 		'if (!ignore_timeupdate) {'
@@ -236,7 +243,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 						   .		'$(this).addClass("ui-state-hover");'
 						   . 	'},'
 						   .	'function() { '
-						   .		'$(this).removeClass("ui-state-hover");' 
+						   .		'$(this).removeClass("ui-state-hover");'
 						   .	'}'
 						   . ');'
 							// Create the progress slider control
@@ -280,12 +287,12 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 						   .	'}'
 						   . '});'
 						. '});</script>';
-			
+
 		} else {
 			$playerScript = '<div>Error: jPlayer player type not supported</div>';
 		}
-		
+
 		return $playerScript;
-	} 
-	
+	}
+
 }
