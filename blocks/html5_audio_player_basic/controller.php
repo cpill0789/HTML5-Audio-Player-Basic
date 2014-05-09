@@ -1,11 +1,15 @@
 <?php
 namespace Concrete\Package\Html5AudioPlayerBasic\Block\Html5AudioPlayerBasic;
 use \Concrete\Core\Block\BlockController;
+use \Concrete\Core\Http\ResponseAssetGroup;
 use UserInfo;
 use Loader;
+use File;
 use Config;
 use Page;
 use View;
+use Concrete\Core\Asset\AssetList as AssetList;
+use Concrete\Core\Asset\Asset as Asset;
 
 class Controller extends BlockController {
 
@@ -37,14 +41,24 @@ class Controller extends BlockController {
 	}
 
 	function view() {
+
+		//$al = AssetList::getInstance();
+		//$al->register('javascript', 'jplayer', 'js/jquery.jplayer.min.js', array('minify' => false, 'combine' => false), 'html5_audio_player_basic');
+		//$al->registerGroup('jplayer', array(
+    	//	array('javascript', 'jplayer')
+		//));
+
+
 		$html = Loader::helper('html');
 		$uh = Loader::helper('concrete/urls');
 
 		$this->addHeaderItem($html->javascript('jquery.js'));
 		$this->addHeaderItem($html->css('jquery.ui.css'));
 		$this->addHeaderItem($html->javascript('jquery.ui.js'));
-
 		$this->addFooterItem($html->javascript('jquery.jplayer.min.js','html5_audio_player_basic'));
+
+		//$r = ResponseAssetGroup::get();
+		//$r->requireAsset('jplayer');
 	}
 
 	public function save($data) {
