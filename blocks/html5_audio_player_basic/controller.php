@@ -26,23 +26,29 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 		);
 	}
 
-	function getCustomTemplateName() {
-		return $this->getBlockObject()->getBlockFilename();
-	}
-
 	function getBlockPath() {
 		$uh = Loader::helper('concrete/urls');
 		return $uh->getBlockTypeAssetsURL($this->getBlockObject()->getBlockTypeObject());
 	}
 
-	function on_page_view(){
+	function on_page_view() {
 		$html = Loader::helper('html');
 		$uh = Loader::helper('concrete/urls');
 
+		$playerTheme = $this->getBlockObject()->getBlockFilename();
+
 		$this->addHeaderItem($html->javascript('jquery.js'));
-		$this->addHeaderItem($html->css('jquery.ui.css'));
-		$this->addHeaderItem($html->javascript('jquery.ui.js'));
+
+		if ($playerTheme != 'basic_purple' && $playerTheme != 'circle_player' &&
+			$playerTheme != 'blue_monday' && $playerTheme != 'pink_flag') {
+			$this->addHeaderItem($html->css('jquery.ui.css'));
+			$this->addFooterItem($html->javascript('jquery.ui.js'));
+		}
 		$this->addFooterItem($html->javascript('jplayer.min.js','html5_audio_player_basic'));
+	}
+
+	function add() {
+		$this->set('pauseOthers', 1);
 	}
 
 	public function save($data) {
