@@ -6,6 +6,12 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 	protected $btInterfaceWidth = "500";
 	protected $btInterfaceHeight = "400";
 
+	protected $btCacheBlockRecord = true;
+    protected $btCacheBlockOutput = true;
+    protected $btCacheBlockOutputOnPost = true;
+    protected $btCacheBlockOutputForRegisteredUsers = false;
+    protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
+
 	public function getBlockTypeName() {
 		return t('HTML5 Audio Player Basic');
 	}
@@ -36,7 +42,6 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 		$this->addHeaderItem($html->javascript('jquery.js'));
 		$this->addHeaderItem($html->css('jquery.ui.css'));
 		$this->addHeaderItem($html->javascript('jquery.ui.js'));
-
 		$this->addFooterItem($html->javascript('jplayer.min.js','html5_audio_player_basic'));
 	}
 
@@ -61,7 +66,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 		$defaultAncestor = 'jp_container_'.$blockID;
 
 		$f = File::getByID($this->fID);
-		$fileType = $f->getExtension();
+		$fileType = strtolower($f->getExtension());
 		if ($fileType == 'ogg') {
 			$fileType = 'oga';
 		}
@@ -78,7 +83,7 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 		if ($this->secondaryfID > 0) {
 			$f2 = File::getByID($this->secondaryfID);
 			$relPath2 = $f2->getRelativePath();
-			$fileType2 = $f2->getExtension();
+			$fileType2 = strtolower($f2->getExtension());
 			if ($fileType2 == 'ogg') {
 				$fileType2 = 'oga';
 			}
@@ -125,7 +130,6 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 		if ($playerType == 'STANDARD') {
 
 			// Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
-
 			$playerScript .= '$("#jquery_jplayer_'.$blockID.'").jPlayer({'
 						   .	'ready: function (event) { '
 						   .		$defaultReady;
