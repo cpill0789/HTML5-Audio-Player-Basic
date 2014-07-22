@@ -4,8 +4,8 @@
 	class Html5AudioPlayerBasicPackage extends Package {
 
 		protected $pkgHandle = 'html5_audio_player_basic';
-		protected $appVersionRequired = '5.5.1';
-		protected $pkgVersion = '1.1.4.1';
+		protected $appVersionRequired = '5.7';
+		protected $pkgVersion = '1.2.0';
 
 		public function getPackageDescription() {
 			return t("Installs the HTML5 Audio Player Basic block.");
