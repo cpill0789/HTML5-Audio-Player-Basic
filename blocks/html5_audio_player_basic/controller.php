@@ -55,9 +55,9 @@ class Controller extends BlockController {
 		$uh = Loader::helper('concrete/urls');
 
 		$this->addHeaderItem($html->javascript('jquery.js'));
-		$this->addHeaderItem($html->css('jquery.ui.css'));
-		$this->addHeaderItem($html->javascript('jquery.ui.js'));
-		$this->addFooterItem($html->javascript('jquery.jplayer.min.js','html5_audio_player_basic'));
+		//$this->addHeaderItem($html->css('jquery.ui.css'));
+		//$this->addHeaderItem($html->javascript('jquery.ui.js'));
+		$this->addFooterItem($html->javascript('jplayer.min.js','html5_audio_player_basic'));
 
 		//$r = ResponseAssetGroup::get();
 		//$r->requireAsset('jplayer');
