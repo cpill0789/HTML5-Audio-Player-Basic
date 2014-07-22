@@ -14,8 +14,8 @@ echo $controller->getPlayerJavascript('BOOTSTRAP');
 			<div class="jp-type-single">
 				<div class="jp-gui jp-interface">
 					<div class="jp-controls">
-						<a href="javascript:;" class="jp-play" tabindex="1"><i class="fa fa-play"></i></a>
-						<a href="javascript:;" class="jp-pause" tabindex="1"><i class="fa fa-pause"></i></a>
+						<a href="javascript:;" class="jp-play" tabindex="1"><i class="fa fa-play fa-2x"></i></a>
+						<a href="javascript:;" class="jp-pause" tabindex="1"><i class="fa fa-pause fa-2x"></i></a>
 						<a href="javascript:;" class="jp-stop" tabindex="1"><i class="fa fa-stop"></i></a>
 						<a href="javascript:;" class="jp-mute" tabindex="1" title="mute"><i class="fa fa-volume-down"></i></a>
 						<a href="javascript:;" class="jp-unmute" tabindex="1" title="unmute"><i class="fa fa-volume-off"></i></a>

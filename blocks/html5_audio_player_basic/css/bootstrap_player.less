@@ -1,6 +1,6 @@
-@interface-height: 30px;
+@interface-height: 35px;
 @interface-width: 400px;
-@icon-height: 14px;
+@icon-height: 24px;
 @icon-width: 14px;
 @icon-top: (@interface-height - @icon-height) / 2;
 @spacing: 5px;
@@ -131,9 +131,7 @@
 			  border-radius: 0px;
 			  cursor: pointer;
 			}
-			.jp-no-solution {
-				display:none;
-			}
+
 		}
 
 		.jp-type-single {
@@ -186,6 +184,9 @@
 			.jp-type-playlist .jp-playlist ul {
 				width: @interface-width - @total-vol-width;
 			}
+		}
+		.jp-no-solution {
+			display:none;
 		}
 
 		@media (max-width: 480px) {

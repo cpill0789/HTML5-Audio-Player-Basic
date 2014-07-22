@@ -8,7 +8,7 @@
   font-size: 12px;
 }
 .bootstrap .jp-interface {
-  height: 30px;
+  height: 35px;
   width: 400px;
   padding: 5px;
   background: #bfbfbf;
@@ -20,7 +20,7 @@
 .bootstrap .jp-interface .jp-repeat,
 .bootstrap .jp-interface .jp-repeat-off {
   position: absolute;
-  top: 8px;
+  top: 5.5px;
 }
 .bootstrap .jp-interface .jp-pause,
 .bootstrap .jp-interface .jp-repeat-off,
@@ -30,7 +30,7 @@
 .bootstrap .jp-interface div.jp-progress {
   position: absolute;
   height: 15px;
-  top: 7.5px;
+  top: 10px;
   background: #dddddd;
   border-radius: 0px;
   margin-bottom: 0;
@@ -58,25 +58,22 @@
 .bootstrap .jp-interface .jp-unmute {
   position: absolute;
   right: 84px;
-  top: 8px;
+  top: 5.5px;
 }
 .bootstrap .jp-interface .jp-volume-max {
   position: absolute;
   right: 10px;
-  top: 8px;
+  top: 5.5px;
 }
 .bootstrap .jp-interface div.jp-volume-bar {
   position: absolute;
   height: 10px;
-  top: 10px;
+  top: 12.5px;
   right: 29px;
   width: 50px;
   background: #dddddd;
   border-radius: 0px;
   cursor: pointer;
-}
-.bootstrap .jp-interface .jp-no-solution {
-  display: none;
 }
 .bootstrap .jp-type-single .jp-interface .jp-play,
 .bootstrap .jp-type-single .jp-interface .jp-pause {
@@ -123,6 +120,9 @@
 .bootstrap .jp-no-volume .jp-interface,
 .bootstrap .jp-no-volume .jp-type-playlist .jp-playlist ul {
   width: 302px;
+}
+.bootstrap .jp-no-solution {
+  display: none;
 }
 @media (max-width: 480px) {
   .bootstrap .jp-volume-bar,
