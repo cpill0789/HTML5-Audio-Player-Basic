@@ -149,7 +149,18 @@ class Controller extends BlockController {
 		// Assemble Player Javascript
 		$playerScript = '<script type="text/javascript">$(document).ready(function(){';
 
-		if ($playerType == 'STANDARD') {
+		if ($playerType == 'STANDARD' || $playerType == 'BOOTSTRAP') {
+
+			if($playerType == 'BOOTSTRAP') {
+				$defaultStandard .=  "timeupdate: function(event) {
+										$('#jp_container_$blockID .jp-time-wrapper').css('left', event.jPlayer.status.currentPercentAbsolute+'%');
+									}, pause: function(event) {
+										$('#jp_container_$blockID .jp-current-time').fadeOut();
+									}, ended: function(event) {
+										$('#jp_container_$blockID .jp-current-time').hide();
+									}, ";
+				$defaultPlay .= "$('#jp_container_$blockID .jp-current-time').fadeIn();";
+			}
 
 			// Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
 			$playerScript .= '$("#jquery_jplayer_'.$blockID.'").jPlayer({'
