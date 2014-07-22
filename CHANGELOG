@@ -1,5 +1,7 @@
 Versions:
 
+1.1.4 - Upgraded jPlayer library to version 2.6.0, added toggle for choosing to pause other players on the same page on playback, minor interface improvements and bug fixes.
+
 1.1.3 - Fixed the more than 8 players in Firefox bug!
 
 1.1.2 - Minor theme modifications

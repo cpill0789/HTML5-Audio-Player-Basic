@@ -1,32 +1,44 @@
 var JPAudioPlayerBlock = {
-	init:function(){},
-	
 	validate:function(){
-		
-		var failed=0; 
-		
-		
+		var failed=0;
 		if ($("#ccm-jPAudioPlayerBlock-singleAudio input[name=fID]").val() <= 0) {
 			alert(ccm_t('choose-file'));
 			failed = 1;
-		}	
-		
+		}
 		if(failed){
 			ccm_isBlockError=1;
 			return false;
 		}
-		
 		return true;
 	}
 }
 
 ccmValidateBlockForm = function() { return JPAudioPlayerBlock.validate(); }
 
+/* Initialize Title Source Picker */
+$(function(){
+	var $select = $("#ccm-jPAudioPlayerBlock-singleAudio select[name=metaCategory]");
+	var $title = $('#ccm-jPAudioPlayerBlock-singleAudio #title');
+
+	if ($select.val() == 'NONE') {
+		$title.show();
+	} else {
+		$title.hide();
+	}
+	$select.change(function(){
+		if (this.value == 'NONE') {
+			$title.show();
+		} else {
+			$title.hide();
+		}
+	});
+});
+
 /* Initialize Tabs */
-$(document).ready(function(){
-   $('#tabset a').click(function(ev){
+$(function(){
+   $('#audioBlock-tabs a').click(function(ev){
 	var tab_to_show = $(this).attr('href');
-	$('#tabset li').
+	$('#audioBlock-tabs li').
 	  removeClass('active').
 	  find('a').
 	  each(function(ix, elem){

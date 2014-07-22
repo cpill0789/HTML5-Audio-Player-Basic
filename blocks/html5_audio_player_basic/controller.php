@@ -17,6 +17,12 @@ class Controller extends BlockController {
 	protected $btInterfaceWidth = "500";
 	protected $btInterfaceHeight = "400";
 
+	protected $btCacheBlockRecord = true;
+    protected $btCacheBlockOutput = true;
+    protected $btCacheBlockOutputOnPost = true;
+    protected $btCacheBlockOutputForRegisteredUsers = false;
+    protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
+
 	public function getBlockTypeName() {
 		return t('HTML5 Audio Player Basic');
 	}
@@ -29,10 +35,6 @@ class Controller extends BlockController {
 		return array(
 			'choose-file' => t('Choose an Audio File')
 		);
-	}
-
-	function getCustomTemplateName() {
-		return $this->getBlockObject()->getBlockFilename();
 	}
 
 	function getBlockPath() {
@@ -64,6 +66,7 @@ class Controller extends BlockController {
 	public function save($data) {
 		$data['loopAudio'] = intval($data['loopAudio']);
 		$data['autoPlay'] = intval($data['autoPlay']);
+		$data['pauseOthers'] = intval($data['pauseOthers']);
 		$data['useMetaTitle'] = intval($data['useMetaTitle']);
 		parent::save($data);
 	}
@@ -81,7 +84,9 @@ class Controller extends BlockController {
 		$defaultAncestor = 'jp_container_'.$blockID;
 
 		$f = File::getByID($this->fID);
-		$fileType = $f->getExtension();
+
+		$fileType = strtolower($f->getExtension());
+
 		if ($fileType == 'ogg') {
 			$fileType = 'oga';
 		}
@@ -98,7 +103,9 @@ class Controller extends BlockController {
 		if ($this->secondaryfID > 0) {
 			$f2 = File::getByID($this->secondaryfID);
 			$relPath2 = $f2->getRelativePath();
-			$fileType2 = $f2->getExtension();
+
+			$fileType2 = strtolower($f2->getExtension());
+
 			if ($fileType2 == 'ogg') {
 				$fileType2 = 'oga';
 			}
@@ -127,7 +134,11 @@ class Controller extends BlockController {
 			$defaultReady .= '$(this).jPlayer("play");';
 		}
 
-		$defaultPlay = '$(this).jPlayer("pauseOthers");';
+		if ($this->pauseOthers) {
+			$defaultPlay = '$(this).jPlayer("pauseOthers");';
+		} else {
+			$defaultPlay = '';
+		}
 
 		$defaultStandard =	'swfPath: "'.REL_DIR_PACKAGES.'/html5_audio_player_basic/flash/",'
 						 . 	'supplied: "'.$fileTypes.'",'
@@ -141,7 +152,6 @@ class Controller extends BlockController {
 		if ($playerType == 'STANDARD') {
 
 			// Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
-
 			$playerScript .= '$("#jquery_jplayer_'.$blockID.'").jPlayer({'
 						   .	'ready: function (event) { '
 						   .		$defaultReady;

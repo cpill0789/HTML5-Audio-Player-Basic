@@ -9,15 +9,19 @@
 		<field name="autoPlay" type="I1">
 			<unsigned />
 			<default value="0" />
-		</field>	
+		</field>
 		<field name="loopAudio" type="I1">
 			<unsigned />
 			<default value="0" />
 		</field>
+		<field name="pauseOthers" type="I1">
+			<unsigned />
+			<default value="1" />
+		</field>
 		<field name="metaCategory" type="C" size="50"><default value="NONE" /></field>
-	
+
 		<field name="fID" type="I"><unsigned /></field>
-		<field name="secondaryfID" type="I"><unsigned /></field>	
+		<field name="secondaryfID" type="I"><unsigned /></field>
 		<field name="title" type="C" size="255"></field>
 	</table>
 </schema>
