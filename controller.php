@@ -24,7 +24,7 @@ class Controller extends Package
     public function install()
     {
         $pkg = parent::install();
-        
+
         // install block
         BlockType::installBlockTypeFromPackage('html5_audio_player_basic', $pkg);
 	}
