@@ -1,3 +1,5 @@
+# Format package for Concrete5 marketplace submission
+
 rm -r build
 mkdir -p build/html5_audio_player_basic/
 cp -r blocks ./build/html5_audio_player_basic/

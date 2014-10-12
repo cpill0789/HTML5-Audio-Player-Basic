@@ -24,6 +24,8 @@ class Controller extends BlockController
 
     protected $btCacheBlockOutputLifetime = CACHE_LIFETIME;
 
+    protected $btDefaultSet = 'multimedia';
+
     public function getBlockTypeName()
     {
         return t('HTML5 Audio Player Basic');
