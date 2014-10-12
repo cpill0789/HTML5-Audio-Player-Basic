@@ -46,6 +46,15 @@
 		.jp-unmute {
 			display:none;
 		}
+
+		.jp-repeat:hover {
+			color: @element-color;
+		}
+		.jp-repeat-off,
+		.jp-repeat-off:hover {
+		 	color: @control-select-color;
+		 }
+
 		.jp-progress {
 			.progress;
 			.center(@interface-height, @progress-height);
@@ -60,7 +69,7 @@
 			}
 			.jp-play-bar {
 				.progress-bar;
-				background:@element-color;
+				background:@progress-color;
 			}
 		}
 		.jp-time-wrapper {

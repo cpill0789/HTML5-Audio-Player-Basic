@@ -2,7 +2,7 @@
   overflow: hidden;
   height: 20px;
   margin-bottom: 20px;
-  background-color: #dddddd;
+  background-color: #cccccc;
   border-radius: 0;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -92,33 +92,51 @@
   height: 30px;
   width: 350px;
   padding: 5px;
-  background: #bfbfbf;
+  background: #222222;
   position: relative;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-play,
 .bootstrap-player .jp-audio .jp-interface .jp-pause {
   line-height: 1;
   position: absolute;
-  color: #aa0000;
+  color: #dddddd;
   font-size: 20px;
+  width: 20px;
+}
+.bootstrap-player .jp-audio .jp-interface .jp-play:hover,
+.bootstrap-player .jp-audio .jp-interface .jp-pause:hover {
+  color: #bbbbbb;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-stop,
 .bootstrap-player .jp-audio .jp-interface .jp-repeat,
 .bootstrap-player .jp-audio .jp-interface .jp-repeat-off {
   position: absolute;
-  color: #aa0000;
+  color: #dddddd;
   font-size: 14px;
+  width: 14px;
+}
+.bootstrap-player .jp-audio .jp-interface .jp-stop:hover,
+.bootstrap-player .jp-audio .jp-interface .jp-repeat:hover,
+.bootstrap-player .jp-audio .jp-interface .jp-repeat-off:hover {
+  color: #bbbbbb;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-pause,
 .bootstrap-player .jp-audio .jp-interface .jp-repeat-off,
 .bootstrap-player .jp-audio .jp-interface .jp-unmute {
   display: none;
 }
+.bootstrap-player .jp-audio .jp-interface .jp-repeat:hover {
+  color: #dddddd;
+}
+.bootstrap-player .jp-audio .jp-interface .jp-repeat-off,
+.bootstrap-player .jp-audio .jp-interface .jp-repeat-off:hover {
+  color: #666666;
+}
 .bootstrap-player .jp-audio .jp-interface .jp-progress {
   overflow: hidden;
   height: 20px;
   margin-bottom: 20px;
-  background-color: #dddddd;
+  background-color: #cccccc;
   border-radius: 0;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -168,7 +186,7 @@
   -webkit-transition: width 0.6s ease;
   -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
-  background: #aa0000;
+  background: #eeeeee;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-progress .jp-play-bar[aria-valuenow="1"],
 .bootstrap-player .jp-audio .jp-interface .jp-progress .jp-play-bar[aria-valuenow="2"] {
@@ -199,21 +217,30 @@
 .bootstrap-player .jp-audio .jp-interface .jp-mute,
 .bootstrap-player .jp-audio .jp-interface .jp-unmute {
   position: absolute;
-  color: #aa0000;
+  color: #dddddd;
   font-size: 14px;
+  width: 14px;
   right: 84px;
+}
+.bootstrap-player .jp-audio .jp-interface .jp-mute:hover,
+.bootstrap-player .jp-audio .jp-interface .jp-unmute:hover {
+  color: #bbbbbb;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-max {
   position: absolute;
-  color: #aa0000;
+  color: #dddddd;
   font-size: 14px;
+  width: 14px;
   right: 10px;
+}
+.bootstrap-player .jp-audio .jp-interface .jp-volume-max:hover {
+  color: #bbbbbb;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-bar {
   overflow: hidden;
   height: 20px;
   margin-bottom: 20px;
-  background-color: #dddddd;
+  background-color: #cccccc;
   border-radius: 0;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -222,7 +249,7 @@
   top: 10px;
   right: 29px;
   width: 50px;
-  background: #dddddd;
+  background: #aaaaaa;
   cursor: pointer;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-bar .jp-volume-bar-value {
@@ -239,7 +266,7 @@
   -webkit-transition: width 0.6s ease;
   -o-transition: width 0.6s ease;
   transition: width 0.6s ease;
-  background: #aa0000;
+  background: #dddddd;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-bar .jp-volume-bar-value[aria-valuenow="1"],
 .bootstrap-player .jp-audio .jp-interface .jp-volume-bar .jp-volume-bar-value[aria-valuenow="2"] {
@@ -283,7 +310,7 @@
   padding: 0;
 }
 .bootstrap-player .jp-audio .jp-type-single .jp-title ul li div.title-holder {
-  background: #f2f2f2;
+  background: #555555;
   margin: 0;
   padding: 0px 10px;
   display: inline-block;
