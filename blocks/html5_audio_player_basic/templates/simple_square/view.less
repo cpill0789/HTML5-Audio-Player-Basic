@@ -11,12 +11,15 @@
 			right:0;
 			bottom:0;
 			left:0;
-			background-color:#333;
+			background-color:#111;
 
 			.jp-play, .jp-stop {
 				cursor:pointer;
 				position:absolute;
-				color:white;
+				color:#eee;
+				&:hover {
+					color:#aaa;
+				}
 				line-height:@size;
 				left:0;
 				right:0;
@@ -27,11 +30,11 @@
 			}
 
 			.jp-play {
-				font-size:25px;
+				font-size:23px;
 			}
 			.jp-stop {
 				display:none;
-				font-size:20px;
+				font-size:17px;
 			}
 		}
 
