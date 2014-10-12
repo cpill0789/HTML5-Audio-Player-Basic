@@ -33,7 +33,7 @@ if($secondaryfID > 0) {
 	<div id="audioBlock-singleAudio" class="row">
 		<div class="col-sm-12">
 			<?php
-			echo t('Display Title:');
+			echo $form->label('metaCategory', t('Title Source:'));
 			echo $form->select('metaCategory', array(
 									'TITLE'=> t('File Title tag'),
 									'DESCRIPTION' => t('File Description tag'),
