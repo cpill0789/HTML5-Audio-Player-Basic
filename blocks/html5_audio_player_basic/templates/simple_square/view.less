@@ -2,39 +2,51 @@
 .simple_square {
 	.jp-audio {
 		position:relative;
-		width:@size;
-		height:@size;
 
 		.jp-interface {
-			position: absolute;
-			top:0;
-			right:0;
-			bottom:0;
-			left:0;
-			background-color:#111;
+			position:relative;
+			width:@size;
+			height:@size;
 
-			.jp-play, .jp-stop {
-				cursor:pointer;
-				position:absolute;
-				color:#eee;
-				&:hover {
-					color:#ccc;
-				}
-				line-height:@size;
-				left:0;
-				right:0;
+			.jp-controls {
+				position: absolute;
 				top:0;
+				right:0;
 				bottom:0;
-				text-align:center;
-				vertical-align:middle;
-			}
+				left:0;
+				background-color:#111;
 
-			.jp-play {
-				font-size:23px;
+				.jp-play, .jp-stop {
+					cursor:pointer;
+					position:absolute;
+					color:#eee;
+					&:hover {
+						color:#ccc;
+					}
+					line-height:@size;
+					left:0;
+					right:0;
+					top:0;
+					bottom:0;
+					text-align:center;
+					vertical-align:middle;
+				}
+
+				.jp-play {
+					font-size:23px;
+				}
+				.jp-stop {
+					display:none;
+					font-size:17px;
+				}
 			}
-			.jp-stop {
-				display:none;
-				font-size:17px;
+		}
+
+		.jp-details {
+			ul {
+				list-style-type: none;
+				margin:0;
+				padding:0;
 			}
 		}
 

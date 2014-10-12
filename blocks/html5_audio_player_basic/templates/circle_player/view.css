@@ -1,4 +1,5 @@
 .circle_player {
+  position: relative;
   -webkit-box-sizing: content-box;
   -moz-box-sizing: content-box;
   box-sizing: content-box;
@@ -117,4 +118,21 @@
 .circle_player .cp-jplayer {
   width: 0;
   height: 0;
+}
+.circle_player .jp-details {
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 12px;
+}
+.circle_player .jp-details ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.circle_player .jp-details ul li {
+  margin: 0;
+  padding: 0;
 }

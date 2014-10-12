@@ -2,14 +2,15 @@
 namespace Concrete\Package\Html5AudioPlayerBasic\Block\Html5AudioPlayerBasic;
 
 use Concrete\Core\Block\BlockController;
-use Loader;
 use File;
+use Loader;
+
 class Controller extends BlockController
 {
 
     protected $btTable = "btHtml5AudioPlayerBasic";
 
-    protected $btInterfaceWidth = "500";
+    protected $btInterfaceWidth = "600";
 
     protected $btInterfaceHeight = "500";
 
@@ -51,19 +52,20 @@ class Controller extends BlockController
             $theme = $block->getBlockFilename();
         }
         if ($theme == '') {
-            $theme = 'bootstrap';
+            $theme = 'default';
+        }
+
+        if (substr($theme, 0, 6) === 'simple' || substr($theme, 0, 7) === 'default') {
+            $this->requireAsset('css', 'font-awesome');
         }
 
         $this->set('script', $this->getPlayerJavascript($theme));
     }
 
-	public function add() {
-		$this->requireAsset('javascript', 'bootstrap/tab');
-	}
-
-	public function edit() {
-		$this->requireAsset('javascript', 'bootstrap/tab');
-	}
+    public function add()
+    {
+        $this->set('initialVolume', 80);
+    }
 
     public function save($data)
     {
@@ -100,7 +102,7 @@ class Controller extends BlockController
 
         $blockID = $this->bID;
         $defaultAncestor = 'jp_container_' . $this->bID;
-        $defaultPlay = '';
+        $playEvent = '';
 
         $fileTypes = $fileType;
 
@@ -126,67 +128,85 @@ class Controller extends BlockController
         $fileInfo = $jh->encode($info);
 
         // Player event callback default values
-        $defaultReady = '$(this).jPlayer("setMedia",' . $fileInfo . ');';
+        $readyEvent = '$(this).jPlayer("setMedia",' . $fileInfo . ');';
 
         if ($this->autoPlay) {
-            $defaultReady .= '$(this).jPlayer("play");';
+            $readyEvent .= '$(this).jPlayer("play");';
         }
 
         if ($this->pauseOthers) {
-            $defaultPlay = '$(this).jPlayer("pauseOthers");';
+            $playEvent = '$(this).jPlayer("pauseOthers");';
         }
+
         $defaultStandard = 'swfPath: "' . REL_DIR_PACKAGES . '/html5_audio_player_basic/flash/",'
-        				 . 'supplied: "' . $fileTypes . '",'
-        				 . 'wmode: "window",'
-        				 . 'volume: ' . $volume . ','
-        				 . 'loop: ' . $isLooped . ',';
+                         . 'supplied: "' . $fileTypes . '",'
+                         . 'wmode: "window",'
+                         . 'volume: ' . $volume . ','
+                         . 'loop: ' . $isLooped . ',';
 
         // Assemble Player Javascript
         $playerScript = '<script type="text/javascript">$(document).ready(function(){';
 
-        if (substr($playerType, 0, 6) == 'simple') {
+        if (substr($playerType, 0, 6) === 'simple') {
 
             // Javascript for simple player
-            $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;
-
-            if ($info['title'] == '') {
-                $playerScript .= '$("#' . $defaultAncestor . ' .jp-details").hide();';
-            }
-
-            $playerScript .= '},'
-            			  . 'play: function(event) {' . $defaultPlay . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").hide();'
-            			  	. '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").show();' . '},'
-            			  . 'pause: function (event) {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},'
-            			  . 'ended: function () {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},'
-            			  . $defaultStandard
-            			  . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});';
+            $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({'
+                           . 'ready: function (event) { ' . $readyEvent . '},'
+                           . 'play: function(event) {'
+                               . $playEvent
+                               . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").hide();'
+                               . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").show();'
+                           . '},'
+                           . 'pause: function (event) {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();'
+                               . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();'
+                           . '},'
+                           . 'ended: function () {'
+                               . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();'
+                               . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();'
+                           . '},'
+                           . $defaultStandard
+                           . 'cssSelectorAncestor: "#' . $defaultAncestor . '"'
+                           . '});';
 
         } elseif ($playerType == 'circle_player') {
 
             // Javascript for Circle player
-            $playerScript .= 'var myCirclePlayer = new CirclePlayer("#jquery_jplayer_' . $blockID . '",' . $fileInfo . ','
-            			   . '{' . $defaultStandard . 'cssSelectorAncestor: "#cp_container_' . $blockID . '"' . '});';
+            $playerScript .= 'var myCirclePlayer = new CirclePlayer("#jquery_jplayer_' . $blockID . '",' . $fileInfo . ', {'
+                                . $defaultStandard
+                                . 'cssSelectorAncestor: "#cp_container_' . $blockID . '"';
+            if ($this->autoPlay) {
+                $playerScript .= ', autoPlay: true';
+            }
+
+            if ($this->pauseOthers) {
+                $playerScript .= ', pauseOthers: true';
+            }
+
+            $playerScript .= '});';
 
         } else {
-            if ($playerType == 'bootstrap') {
+
+            if (substr($playerType, 0, 7) === 'default') {
                 $defaultStandard .= 'timeupdate: function(event) {'
-								  	. '$("#jp_container_'.$blockID.' .jp-time-wrapper").css("left", event.jPlayer.status.currentPercentAbsolute+"%");'
-								  . '}, pause: function(event) {'
-								  	. '$("#jp_container_'.$blockID.' .jp-current-time").fadeOut();'
-								  . '}, ended: function(event) {'
-								  	. '$("#jp_container_'.$blockID.' .jp-current-time").hide();'
-								  . '}, ';
-                $defaultPlay .= "$('#jp_container_$blockID .jp-current-time').fadeIn();";
+                                    . '$("#jp_container_' . $blockID . ' .jp-time-wrapper").css("left", event.jPlayer.status.currentPercentAbsolute+"%");'
+                                  . '},'
+                                  . 'pause: function(event) {' . '$("#jp_container_' . $blockID . ' .jp-current-time").fadeOut();' . '}, '
+                                  . 'ended: function(event) {' . '$("#jp_container_' . $blockID . ' .jp-current-time").hide();' . '}, ';
+                $playEvent .= "$('#jp_container_$blockID .jp-current-time').fadeIn();";
             }
 
             // Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
-            $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;
-            if ($info['title'] == '') {
-                $playerScript .= '$("#' . $defaultAncestor . ' .jp-title").hide();';
-            }
-            $playerScript .= '},' . 'play: function(event) {' . $defaultPlay . '},' . $defaultStandard . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});';
+            $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({'
+                                . 'ready: function (event) { ' . $readyEvent . '},'
+                                . 'play: function(event) {' . $playEvent . '},'
+                                . $defaultStandard
+                                . 'cssSelectorAncestor: "#' . $defaultAncestor . '"'
+                           . '});';
         }
-		$playerScript .= '});</script>';
+        if ($info['title'] == '') {
+            $playerScript .= '$("#' . $defaultAncestor . ' .jp-details").hide();';
+        }
+        $playerScript .= '});</script>';
         return $playerScript;
     }
 }

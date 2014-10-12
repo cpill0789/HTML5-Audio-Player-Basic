@@ -1,4 +1,5 @@
-<?php defined('C5_EXECUTE') or die("Access Denied.");
+<?php
+defined('C5_EXECUTE') or die("Access Denied.");
 
 $al = Loader::helper('concrete/asset_library');
 
@@ -23,7 +24,7 @@ if($secondaryfID > 0) {
 	margin:0 5px;
 }
 #title {
-	width:175px;
+	width:300px;
 	display:inline-block;
 }
 </style>
@@ -62,14 +63,17 @@ if($secondaryfID > 0) {
 </fieldset>
 <fieldset id="audioBlock-playback">
 	<legend><?php echo t('Playback Options') ?></legend>
-	<div>
-		<input type="checkbox" name="loopAudio" value="1" <?php	 if ($loopAudio == 1) { ?> checked <?php  } ?> /> <?php echo t('Loop')?><br />
-		<input type="checkbox" name="autoPlay" value="1" <?php	if ($autoPlay == 1) { ?> checked <?php	} ?> /> <?php echo t('Autoplay')?><br />
-		<input type="checkbox" name="pauseOthers" value="1" <?php	if ($pauseOthers == 1) { ?> checked <?php	} ?> /> <?php echo t('Pause other players on playback')?><br />
-	</div>
-	<div id="audioBlock-volume" style="width:200px;margin:8px">
-		<span><?php echo t('Initial Volume:')?></span> <span id="volumeLevel"></span>
-		<div id="audioBlock-volumeSlider" style=""></div>
-		<input type="hidden" name="initialVolume" value="<?php echo ($initialVolume > 0) ? $initialVolume : '80'; ?>"/>
+	<div class="row">
+        <div class="col-sm-6">
+    	<?php echo $form->checkbox('loopAudio', 1, $loopAudio).' '.$form->label('loopAudio', t('Loop')); ?><br>
+    	<?php echo $form->checkbox('autoPlay', 1, $autoPlay).' '.$form->label('autoPlay', t('Play Automatically')); ?><br>
+    	<?php echo $form->checkbox('pauseOthers', 1, $pauseOthers).' '.$form->label('pauseOthers', t('Pause other players on playback')); ?>
+        </div>
+    	<div id="audioBlock-volume" class="col-sm-6">
+    		<label for="initialVolume"><?php echo t('Initial Volume:')?></label>
+    		<span id="volumeLevel"></span>
+    		<div id="audioBlock-volumeSlider" style=""></div>
+    		<input type="hidden" name="initialVolume" value="<?php echo $initialVolume; ?>"/>
+    	</div>
 	</div>
 </fieldset>

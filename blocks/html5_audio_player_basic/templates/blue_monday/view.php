@@ -51,8 +51,6 @@ if ($c->isEditMode()) { ?>
 			</div>
 		</div>
 	</div>
+	<?php echo $script; ?>
 </div>
-<?php
-	echo $script;
-}
-?>
+<?php } ?>

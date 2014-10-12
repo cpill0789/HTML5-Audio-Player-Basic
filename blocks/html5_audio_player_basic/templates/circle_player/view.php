@@ -1,11 +1,10 @@
 <?php defined('C5_EXECUTE') or die(_("Access Denied."));
 
-$bID = $controller->bID;
-$c = Page::getCurrentPage();
+$c = \Page::getCurrentPage();
 
 if ($c->isEditMode()) { ?>
 	<div class="ccm-edit-mode-disabled-item" style="width:200px;height:200px;">
-		<div style="padding:20px"><?php echo t('Content disabled in edit mode.')?></div>
+		<div style="padding:20px"><?php echo t('Audio player disabled in edit mode.')?></div>
 	</div>
 <?php } else {	?>
 <div class="circle_player">
@@ -27,6 +26,9 @@ if ($c->isEditMode()) { ?>
 			<li><a class="cp-play" tabindex="1"><?php echo t('play'); ?></a></li>
 			<li><a class="cp-pause" style="display:none;" tabindex="1"><?php echo t('pause'); ?></a></li> <!-- Needs the inline style here, or jQuery.show() uses display:inline instead of display:block -->
 		</ul>
+		<div class="jp-details">
+			<ul><li><span class="jp-title"></span></li></ul>
+		</div>
 	</div>
 	<?php echo $script; ?>
 </div>

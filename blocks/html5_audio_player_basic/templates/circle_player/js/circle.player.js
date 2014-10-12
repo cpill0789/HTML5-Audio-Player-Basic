@@ -94,11 +94,18 @@ CirclePlayer.prototype = {
 			}
 			$(this).jPlayer("setMedia", self.media);
 			self._initCircleControl();
-		});
 
-		this.player.bind($.jPlayer.event.play + this.eventNamespace, function(event) {
-			$(this).jPlayer("pauseOthers");
+			var myData = $(this).data("jPlayer");
+
+			if(self.options.autoPlay) {
+				$(this).jPlayer("play");
+			}
 		});
+		if(this.options.pauseOthers) {
+			this.player.bind($.jPlayer.event.play + this.eventNamespace, function(event) {
+				$(this).jPlayer("pauseOthers");
+			});
+		}
 
 		// This event fired as play time increments
 		this.player.bind($.jPlayer.event.timeupdate + this.eventNamespace, function(event) {

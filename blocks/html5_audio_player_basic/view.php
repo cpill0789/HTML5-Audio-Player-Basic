@@ -1,8 +1,8 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
-
-<div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
+<?php
+defined('C5_EXECUTE') or die("Access Denied."); ?>
 
 <div class="bootstrap-player">
+	<div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
 	<div id="jp_container_<?php echo $bID; ?>" class="jp-audio">
 		<div class="jp-album-art"></div>
 		<div class="jp-type-single">
@@ -44,7 +44,11 @@
 			</div>
 		</div>
 	</div>
+<?php
+	$c = \Page::getCurrentPage();
+	if (!$c->isEditMode()) {
+		echo $script;
+	}
+?>
 </div>
-
-<?php echo $script; ?>
 

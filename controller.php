@@ -36,18 +36,12 @@ class Controller extends Package
     public function on_start()
     {
         $al = AssetList::getInstance();
+
         $al->register('javascript', 'jplayer', 'js/jplayer.min.js', array(
             'version' => '2.7.0',
             'position' => Asset::ASSET_POSITION_FOOTER,
             'minify' => false,
             'combine' => false
-        ), $this);
-
-        $al->register('javascript', 'bootstrap/tab', 'js/bootstrap/tab.js', array(
-        	'version' => '3.2.0',
-        	'position' => Asset::ASSET_POSITION_FOOTER,
-        	'minify' => false,
-        	'combine' => false
         ), $this);
     }
 }
