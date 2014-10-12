@@ -1,11 +1,5 @@
-<?php
-defined('C5_EXECUTE') or die("Access Denied.");
+<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
 
-$bID = $controller->bID;
-$c = Page::getCurrentPage();
-
-echo $controller->getPlayerJavascript('STANDARD');
-?>
 <div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
 
 <div class="blue_monday">
@@ -52,3 +46,10 @@ echo $controller->getPlayerJavascript('STANDARD');
 		</div>
 	</div>
 </div>
+<?php
+$c = \Page::getCurrentPage();
+
+if (!$c->isEditMode()) {
+	echo $script;
+}
+?>
