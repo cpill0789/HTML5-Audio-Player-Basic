@@ -134,7 +134,7 @@ class Controller extends BlockController
         // Assemble Player Javascript
         $playerScript = '<script type="text/javascript">$(document).ready(function(){';
 
-        if ($playerType == 'simple_square') {
+        if (substr($playerType, 0, 6) == 'simple') {
 
             // Javascript for simple player
             $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;

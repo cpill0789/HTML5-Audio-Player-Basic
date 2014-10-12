@@ -31,13 +31,14 @@ echo $controller->getPlayerJavascript('STANDARD');
 				<div class="jp-time-holder">
 					<div class="jp-current-time"></div>
 					<div class="jp-duration"></div>
+					<ul class="jp-toggles">
+						<li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat"><?php echo t('repeat'); ?></a></li>
+						<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off"><?php echo t('repeat off'); ?></a></li>
+					</ul>
 				</div>
-				<ul class="jp-toggles">
-					<li><a href="javascript:;" class="jp-repeat" tabindex="1" title="repeat"><?php echo t('repeat'); ?></a></li>
-					<li><a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off"><?php echo t('repeat off'); ?></a></li>
-				</ul>
+
 			</div>
-			<div class="jp-title">
+			<div class="jp-details">
 				<ul>
 					<li>
 						<span class="jp-current-title"></span>
