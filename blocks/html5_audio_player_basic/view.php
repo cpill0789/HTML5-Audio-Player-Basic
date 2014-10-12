@@ -33,12 +33,11 @@
 					<a href="javascript:;" class="jp-repeat-off" tabindex="1" title="repeat off"><i class="fa fa-repeat"></i></a>
 				</div>
 			</div>
-			<div class="jp-title">
+			<div class="jp-details">
 				<ul>
-					<li></li>
+					<li><span class="jp-title"></span></li>
 				</ul>
 			</div>
-
 			<div class="jp-no-solution">
 				<span><?php echo t('Update Required'); ?></span>
 				<?php echo t('To play the media you will need to either update your browser to a recent version or update your'); ?> <a href="http://get.adobe.com/flashplayer/" target="_blank"><?php echo t('Flash plugin'); ?></a>.

@@ -32,7 +32,6 @@
 
 		.jp-play,
 		.jp-pause {
-			line-height:1;
 			.player_icon(@icon-size-large);
 		}
 		.jp-stop,
@@ -130,7 +129,7 @@
 			.progress_bar_position(@left + @spacing * 3 + @icon-size * 3 + 15px,
 									@progress-width + @spacing * 3 + @icon-size * 3);
 		}
-		.jp-title {
+		.jp-details {
 			ul {
 				list-style-type: none;
 				padding:0;
@@ -139,13 +138,6 @@
 				li {
 					margin: 0;
 					padding: 0;
-
-					div.title-holder {
-						background: @player-bg + #333;
-						margin:0;
-						padding:0px 10px;
-						display:inline-block;
-					}
 				}
 			}
 		}

@@ -1,7 +1,7 @@
 var JPAudioPlayerBlock = {
 	validate:function(){
 		var failed=0;
-		if ($("#ccm-jPAudioPlayerBlock-singleAudio input[name=fID]").val() <= 0) {
+		if ($("#audioBlock-singleAudio input[name=fID]").val() <= 0) {
 			alert(ccm_t('choose-file'));
 			failed = 1;
 		}
@@ -15,44 +15,37 @@ var JPAudioPlayerBlock = {
 
 ccmValidateBlockForm = function() { return JPAudioPlayerBlock.validate(); }
 
-/* Initialize Title Source Picker */
 $(function(){
-	var $select = $("#ccm-jPAudioPlayerBlock-singleAudio select[name=metaCategory]");
-	var $title = $('#ccm-jPAudioPlayerBlock-singleAudio #title');
+	/* Initialize Title Source Picker */
+	var $select = $("#audioBlock-singleAudio select[name=metaCategory]");
 
-	if ($select.val() == 'NONE') {
-		$title.show();
-	} else {
-		$title.hide();
-	}
-	$select.change(function(){
-		if (this.value == 'NONE') {
-			$title.show();
+	var checkTitle = function ($select) {
+		if ($select.val() == 'NONE') {
+			$('#audioBlock-singleAudio #title').show();
 		} else {
-			$title.hide();
+			$('#audioBlock-singleAudio #title').hide();
 		}
+	};
+
+	checkTitle($select);
+
+	$select.change(function(){
+		checkTitle($select);
 	});
-});
 
-/* Initialize Tabs */
-$('#audioBasicTabs a').click(function (e) {
-	e.preventDefault();
-	$(this).tab('show');
-});
-$('#audioBasicTabs a:first').tab('show');
-
-/* form volume slide */
-$(function() {
-	$( "#ccm-jPAudioPlayerBlock-volume #ccm-jPAudioPlayerBlock-volumeSlider").slider({
+	/* form volume slide */
+	$( "#audioBlock-volume #audioBlock-volumeSlider").slider({
 	  min: 0,
 	  max: 100,
-	  value: $( "#ccm-jPAudioPlayerBlock-volume input" ).val(),
+	  value: $( "#audioBlock-volume input" ).val(),
 	  slide: function( event, ui ) {
-		$( "#ccm-jPAudioPlayerBlock-volume input" ).val(ui.value);
-		$( "#ccm-jPAudioPlayerBlock-volume #volumeLevel" ).html(ui.value);
+		$( "#audioBlock-volume input" ).val(ui.value);
+		$( "#audioBlock-volume #volumeLevel" ).html(ui.value);
 	  }
 	});
-	$( "#ccm-jPAudioPlayerBlock-volume input" ).val( $( "#ccm-jPAudioPlayerBlock-volume #ccm-jPAudioPlayerBlock-volumeSlider" ).slider( "value" ) );
-	$( "#ccm-jPAudioPlayerBlock-volume #volumeLevel" ).html( $( "#ccm-jPAudioPlayerBlock-volume #ccm-jPAudioPlayerBlock-volumeSlider" ).slider( "value" ) );
+	$( "#audioBlock-volume input" ).val( $( "#audioBlock-volume #audioBlock-volumeSlider" ).slider( "value" ) );
+	$( "#audioBlock-volume #volumeLevel" ).html( $( "#audioBlock-volume #audioBlock-volumeSlider" ).slider( "value" ) );
+
+	/* tooltip */
+	$( ".launch-tooltip" ).tooltip({placement: 'right'});
 });
-$( ".launch-tooltip" ).tooltip({placement: 'right'});

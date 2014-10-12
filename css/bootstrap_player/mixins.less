@@ -4,13 +4,16 @@
 
 .player_icon(@size) {
 	position:absolute;
-	//top:(@interface-height - @size) / 2;
+	top:(@interface-height - @size) / 2;
 	color:@element-color;
 	font-size:@size;
 	width:@size;
 	&:hover {
 		color:@element-color - #222;
 	}
+	line-height:@size;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .force_hide() {

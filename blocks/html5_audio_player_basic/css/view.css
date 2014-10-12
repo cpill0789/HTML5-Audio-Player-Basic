@@ -97,11 +97,14 @@
 }
 .bootstrap-player .jp-audio .jp-interface .jp-play,
 .bootstrap-player .jp-audio .jp-interface .jp-pause {
-  line-height: 1;
   position: absolute;
+  top: 5px;
   color: #dddddd;
   font-size: 20px;
   width: 20px;
+  line-height: 20px;
+  text-align: center;
+  vertical-align: middle;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-play:hover,
 .bootstrap-player .jp-audio .jp-interface .jp-pause:hover {
@@ -111,9 +114,13 @@
 .bootstrap-player .jp-audio .jp-interface .jp-repeat,
 .bootstrap-player .jp-audio .jp-interface .jp-repeat-off {
   position: absolute;
+  top: 8px;
   color: #dddddd;
   font-size: 14px;
   width: 14px;
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-stop:hover,
 .bootstrap-player .jp-audio .jp-interface .jp-repeat:hover,
@@ -217,9 +224,13 @@
 .bootstrap-player .jp-audio .jp-interface .jp-mute,
 .bootstrap-player .jp-audio .jp-interface .jp-unmute {
   position: absolute;
+  top: 8px;
   color: #dddddd;
   font-size: 14px;
   width: 14px;
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
   right: 84px;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-mute:hover,
@@ -228,9 +239,13 @@
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-max {
   position: absolute;
+  top: 8px;
   color: #dddddd;
   font-size: 14px;
   width: 14px;
+  line-height: 14px;
+  text-align: center;
+  vertical-align: middle;
   right: 10px;
 }
 .bootstrap-player .jp-audio .jp-interface .jp-volume-max:hover {
@@ -300,20 +315,14 @@
   width: 157px;
   height: 0;
 }
-.bootstrap-player .jp-audio .jp-type-single .jp-title ul {
+.bootstrap-player .jp-audio .jp-type-single .jp-details ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
-.bootstrap-player .jp-audio .jp-type-single .jp-title ul li {
+.bootstrap-player .jp-audio .jp-type-single .jp-details ul li {
   margin: 0;
   padding: 0;
-}
-.bootstrap-player .jp-audio .jp-type-single .jp-title ul li div.title-holder {
-  background: #555555;
-  margin: 0;
-  padding: 0px 10px;
-  display: inline-block;
 }
 .bootstrap-player .jp-audio .jp-no-volume .jp-volume-bar,
 .bootstrap-player .jp-audio .jp-no-volume a.jp-mute,

@@ -11,7 +11,7 @@ class Controller extends BlockController
 
     protected $btInterfaceWidth = "500";
 
-    protected $btInterfaceHeight = "400";
+    protected $btInterfaceHeight = "500";
 
     protected $btCacheBlockRecord = true;
 
@@ -119,16 +119,14 @@ class Controller extends BlockController
 
         if ($this->metaCategory == 'TITLE') {
             $info['title'] = $f->getTitle();
-        } else
-            if ($this->metaCategory == 'DESCRIPTION') {
-                $info['title'] = $f->getDescription();
-            }
+        } elseif ($this->metaCategory == 'DESCRIPTION') {
+            $info['title'] = $f->getDescription();
+        }
 
         $fileInfo = $jh->encode($info);
 
         // Player event callback default values
-        $defaultReady = '$(this).jPlayer("setMedia",' . $fileInfo . ');'
-        			  . '$("#' . $defaultAncestor . ' .jp-current-title").html($(this).data("jPlayer").status.media.title);';
+        $defaultReady = '$(this).jPlayer("setMedia",' . $fileInfo . ');';
 
         if ($this->autoPlay) {
             $defaultReady .= '$(this).jPlayer("play");';
@@ -151,8 +149,8 @@ class Controller extends BlockController
             // Javascript for simple player
             $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;
 
-            if ($title == '') {
-                $playerScript .= '$("#' . $defaultAncestor . ' .jp-title").hide();';
+            if ($info['title'] == '') {
+                $playerScript .= '$("#' . $defaultAncestor . ' .jp-details").hide();';
             }
 
             $playerScript .= '},'
@@ -183,7 +181,7 @@ class Controller extends BlockController
 
             // Javascript for standard jPlayer skins (Blue Monday and Pink Flag)
             $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;
-            if ($title == '') {
+            if ($info['title'] == '') {
                 $playerScript .= '$("#' . $defaultAncestor . ' .jp-title").hide();';
             }
             $playerScript .= '},' . 'play: function(event) {' . $defaultPlay . '},' . $defaultStandard . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});';
