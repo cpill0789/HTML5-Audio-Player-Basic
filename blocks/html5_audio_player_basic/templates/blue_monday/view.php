@@ -1,8 +1,14 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied.");
 
-<div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
+$c = \Page::getCurrentPage();
 
+if ($c->isEditMode()) { ?>
+	<div class="ccm-edit-mode-disabled-item" style="width:420px;height:100px;">
+		<div style="padding:20px"><?php echo t('Audio player disabled in edit mode.'); ?></div>
+	</div>
+<?php } else { ?>
 <div class="blue_monday">
+	<div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
 	<div id="jp_container_<?php echo $bID; ?>" class="jp-audio">
 		<div class="jp-type-single">
 			<div class="jp-gui jp-interface">
@@ -35,7 +41,7 @@
 			<div class="jp-details">
 				<ul>
 					<li>
-						<span class="jp-current-title"></span>
+						<span class="jp-title"></span>
 					</li>
 				</ul>
 			</div>
@@ -47,9 +53,6 @@
 	</div>
 </div>
 <?php
-$c = \Page::getCurrentPage();
-
-if (!$c->isEditMode()) {
 	echo $script;
 }
 ?>
