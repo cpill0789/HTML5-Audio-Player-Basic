@@ -1,8 +1,9 @@
+@size: 40px;
 .simple_square {
 	.jp-audio {
 		position:relative;
-		width:70px;
-		height:70px;
+		width:@size;
+		height:@size;
 
 		.jp-interface {
 			position: absolute;
@@ -12,11 +13,25 @@
 			left:0;
 			background-color:#333;
 
-			.jp-play {
+			.jp-play, .jp-stop {
+				cursor:pointer;
+				position:absolute;
+				color:white;
+				line-height:@size;
+				left:0;
+				right:0;
+				top:0;
+				bottom:0;
+				text-align:center;
+				vertical-align:middle;
+			}
 
+			.jp-play {
+				font-size:25px;
 			}
 			.jp-stop {
 				display:none;
+				font-size:20px;
 			}
 		}
 

@@ -1,0 +1,56 @@
+.simple_square .jp-audio {
+  position: relative;
+  width: 40px;
+  height: 40px;
+}
+.simple_square .jp-audio .jp-interface {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #333;
+}
+.simple_square .jp-audio .jp-interface .jp-play,
+.simple_square .jp-audio .jp-interface .jp-stop {
+  cursor: pointer;
+  position: absolute;
+  color: white;
+  line-height: 40px;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  text-align: center;
+  vertical-align: middle;
+}
+.simple_square .jp-audio .jp-interface .jp-play {
+  font-size: 25px;
+}
+.simple_square .jp-audio .jp-interface .jp-stop {
+  display: none;
+  font-size: 20px;
+}
+.simple_square .jp-audio .jp-no-solution {
+  padding: 5px;
+  width: 150px;
+  font-size: .8em;
+  background-color: #eee;
+  border: 1px solid #333;
+  color: #222;
+  display: none;
+}
+.simple_square .jp-audio .jp-no-solution a {
+  color: #000;
+}
+.simple_square .jp-audio .jp-no-solution span {
+  font-size: 1em;
+  display: block;
+  text-align: center;
+  font-weight: bold;
+}
+.simple_square .jp-jplayer audio,
+.simple_square .jp-jplayer {
+  width: 0px;
+  height: 0px;
+}

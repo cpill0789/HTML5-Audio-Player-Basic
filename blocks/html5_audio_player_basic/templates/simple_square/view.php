@@ -1,4 +1,6 @@
-<?php defined('C5_EXECUTE') or die("Access Denied."); ?>
+<?php defined('C5_EXECUTE') or die("Access Denied.");
+
+$c = \Page::getCurrentPage();
 
 if ($c->isEditMode()) { ?>
 
@@ -24,4 +26,8 @@ if ($c->isEditMode()) { ?>
 			</div>
 		</div>
 	</div>
-<?php } ?>
+<?php
+
+	echo $script;
+
+} ?>
