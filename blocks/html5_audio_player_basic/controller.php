@@ -41,7 +41,7 @@ class Controller extends BlockController
         );
     }
 
-    function view()
+    public function view()
     {
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('javascript', 'jplayer');
@@ -57,6 +57,14 @@ class Controller extends BlockController
 
         $this->set('script', $this->getPlayerJavascript($theme));
     }
+
+	public function add() {
+		$this->requireAsset('javascript', 'bootstrap/tab');
+	}
+
+	public function edit() {
+		$this->requireAsset('javascript', 'bootstrap/tab');
+	}
 
     public function save($data)
     {

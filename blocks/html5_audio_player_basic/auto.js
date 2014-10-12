@@ -35,20 +35,12 @@ $(function(){
 });
 
 /* Initialize Tabs */
-$(function(){
-   $('#audioBlock-tabs a').click(function(ev){
-	var tab_to_show = $(this).attr('href');
-	$('#audioBlock-tabs li').
-	  removeClass('active').
-	  find('a').
-	  each(function(ix, elem){
-		var tab_to_hide = $(elem).attr('href');
-		$(tab_to_hide).hide();
-	  });
-	$(tab_to_show).show();
-	$(this).parent('li').addClass('active');
-	return false;
-  }).first().click();
+$(function () {
+	$('#audioBasicTabs a').click(function (e) {
+		e.preventDefault();
+		$(this).tab('show');
+	});
+	$('#audioBasicTabs a:first').tab('show');
 });
 
 /* form volume slide */
