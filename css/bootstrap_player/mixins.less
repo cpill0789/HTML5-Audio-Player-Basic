@@ -1,0 +1,33 @@
+.center(@x, @y) {
+	@center: ((@x - @y) / 2);
+}
+
+.player_icon(@size) {
+	position:absolute;
+	//top:(@interface-height - @size) / 2;
+	color:@element-color;
+	font-size:@size;
+}
+
+.large_icon() {
+	position:absolute;
+	top:@icon-large-top;
+	color:@element-color;
+}
+
+.force_hide() {
+	display: none !important;
+}
+
+.progress_bar_position(@l, @w) {
+	.jp-progress {
+		left: @l;
+		width: @w;
+	}
+	.jp-time-holder {
+		position: absolute;
+		left: @l;
+		width: @w;
+		height: 0;
+	}
+}
