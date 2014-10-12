@@ -4,7 +4,6 @@ namespace Concrete\Package\Html5AudioPlayerBasic\Block\Html5AudioPlayerBasic;
 use Concrete\Core\Block\BlockController;
 use Loader;
 use File;
-// use Concrete\Core\Http\Service\Json;
 class Controller extends BlockController
 {
 
@@ -128,7 +127,8 @@ class Controller extends BlockController
         $fileInfo = $jh->encode($info);
 
         // Player event callback default values
-        $defaultReady = '$(this).jPlayer("setMedia",' . $fileInfo . ');' . '$("#' . $defaultAncestor . ' .jp-current-title").html($(this).data("jPlayer").status.media.title);';
+        $defaultReady = '$(this).jPlayer("setMedia",' . $fileInfo . ');'
+        			  . '$("#' . $defaultAncestor . ' .jp-current-title").html($(this).data("jPlayer").status.media.title);';
 
         if ($this->autoPlay) {
             $defaultReady .= '$(this).jPlayer("play");';
@@ -137,7 +137,11 @@ class Controller extends BlockController
         if ($this->pauseOthers) {
             $defaultPlay = '$(this).jPlayer("pauseOthers");';
         }
-        $defaultStandard = 'swfPath: "' . REL_DIR_PACKAGES . '/html5_audio_player_basic/flash/",' . 'supplied: "' . $fileTypes . '",' . 'wmode: "window",' . 'volume: ' . $volume . ',' . 'loop: ' . $isLooped . ',';
+        $defaultStandard = 'swfPath: "' . REL_DIR_PACKAGES . '/html5_audio_player_basic/flash/",'
+        				 . 'supplied: "' . $fileTypes . '",'
+        				 . 'wmode: "window",'
+        				 . 'volume: ' . $volume . ','
+        				 . 'loop: ' . $isLooped . ',';
 
         // Assemble Player Javascript
         $playerScript = '<script type="text/javascript">$(document).ready(function(){';
@@ -146,23 +150,34 @@ class Controller extends BlockController
 
             // Javascript for simple player
             $playerScript .= '$("#jquery_jplayer_' . $blockID . '").jPlayer({' . 'ready: function (event) { ' . $defaultReady;
+
             if ($title == '') {
                 $playerScript .= '$("#' . $defaultAncestor . ' .jp-title").hide();';
             }
-            $playerScript .= '},' . 'play: function(event) {' . $defaultPlay . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").hide();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").show();' . '},' . 'pause: function (event) {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},' . 'ended: function () {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},' . $defaultStandard . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});' . '});</script>';
+
+            $playerScript .= '},'
+            			  . 'play: function(event) {' . $defaultPlay . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").hide();'
+            			  	. '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").show();' . '},'
+            			  . 'pause: function (event) {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},'
+            			  . 'ended: function () {' . '$("#' . $defaultAncestor . ' .jp-controls .jp-play").show();' . '$("#' . $defaultAncestor . ' .jp-controls .jp-stop").hide();' . '},'
+            			  . $defaultStandard
+            			  . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});';
+
         } elseif ($playerType == 'circle_player') {
 
             // Javascript for Circle player
-            $playerScript .= 'var myCirclePlayer = new CirclePlayer("#jquery_jplayer_' . $blockID . '",' . $fileInfo . ',' . '{' . $defaultStandard . 'cssSelectorAncestor: "#cp_container_' . $blockID . '"' . '});' . '});</script>';
+            $playerScript .= 'var myCirclePlayer = new CirclePlayer("#jquery_jplayer_' . $blockID . '",' . $fileInfo . ','
+            			   . '{' . $defaultStandard . 'cssSelectorAncestor: "#cp_container_' . $blockID . '"' . '});';
+
         } else {
             if ($playerType == 'bootstrap') {
-                $defaultStandard .= "timeupdate: function(event) {
-										$('#jp_container_$blockID .jp-time-wrapper').css('left', event.jPlayer.status.currentPercentAbsolute+'%');
-									}, pause: function(event) {
-										$('#jp_container_$blockID .jp-current-time').fadeOut();
-									}, ended: function(event) {
-										$('#jp_container_$blockID .jp-current-time').hide();
-									}, ";
+                $defaultStandard .= 'timeupdate: function(event) {'
+								  	. '$("#jp_container_'.$blockID.' .jp-time-wrapper").css("left", event.jPlayer.status.currentPercentAbsolute+"%");'
+								  . '}, pause: function(event) {'
+								  	. '$("#jp_container_'.$blockID.' .jp-current-time").fadeOut();'
+								  . '}, ended: function(event) {'
+								  	. '$("#jp_container_'.$blockID.' .jp-current-time").hide();'
+								  . '}, ';
                 $defaultPlay .= "$('#jp_container_$blockID .jp-current-time').fadeIn();";
             }
 
@@ -171,9 +186,9 @@ class Controller extends BlockController
             if ($title == '') {
                 $playerScript .= '$("#' . $defaultAncestor . ' .jp-title").hide();';
             }
-            $playerScript .= '},' . 'play: function(event) {' . $defaultPlay . '},' . $defaultStandard . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});' . '});</script>';
+            $playerScript .= '},' . 'play: function(event) {' . $defaultPlay . '},' . $defaultStandard . 'cssSelectorAncestor: "#' . $defaultAncestor . '"' . '});';
         }
-
+		$playerScript .= '});</script>';
         return $playerScript;
     }
 }

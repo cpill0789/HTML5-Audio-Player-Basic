@@ -35,13 +35,11 @@ $(function(){
 });
 
 /* Initialize Tabs */
-$(function () {
-	$('#audioBasicTabs a').click(function (e) {
-		e.preventDefault();
-		$(this).tab('show');
-	});
-	$('#audioBasicTabs a:first').tab('show');
+$('#audioBasicTabs a').click(function (e) {
+	e.preventDefault();
+	$(this).tab('show');
 });
+$('#audioBasicTabs a:first').tab('show');
 
 /* form volume slide */
 $(function() {
