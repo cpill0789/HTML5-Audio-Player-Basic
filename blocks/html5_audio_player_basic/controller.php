@@ -45,7 +45,7 @@ class Controller extends BlockController
         );
     }
 
-	private function getFileInfo($f, $fallback = null);
+	private function getFileInfo($f, $fallback = null)
     {
         if (!is_object($f)) {
             return false;
@@ -84,12 +84,13 @@ class Controller extends BlockController
         $this->requireAsset('javascript', 'jplayer');
         $this->requireAsset('css', 'font-awesome');
 
-		$f = File::getByID($this->fID);
-		$fallback = File::getByID($this->secondaryfID);
+		$f = File::getByID(intval($this->fID));
+		$fallback = File::getByID(intval($this->secondaryfID));
+
 		$fileInfo = $this->getFileInfo($f, $fallback);
 
 		if ($this->titleSource == 'DESCRIPTION') {
-			$fileInfo['title'] = $fileInfo['description']
+			$fileInfo['title'] = $fileInfo['description'];
 		} elseif ($this->titleSource == 'CUSTOM') {
 			$fileInfo['title'] = $this->title;
 		}

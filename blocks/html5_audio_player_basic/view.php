@@ -50,16 +50,29 @@ defined('C5_EXECUTE') or die("Access Denied."); ?>
 <script type="text/javascript">
 	$(function () {
 
-		var options = <?php echo options; ?>;
+		var options = <?php echo $options; ?>;
 		var extensions = {
 			ready: function (event) {
 				$(this).jPlayer("setMedia", options.files);
+				if (options.autoPlay) {
+					$(this).jPlayer("play");
+				}
 			},
 			play: function (event) {
 				if (options.pauseOthers) {
 					$(this).jPlayer("pauseOthers");
 				}
-			}
+				$("#jp_container_<?php echo $bID; ?> .jp-current-time").fadeIn();
+			},
+		    pause: function(event) {
+		    	$("#jp_container_<?php echo $bID; ?> .jp-current-time").fadeOut();
+	        },
+	        ended: function(event) {
+	        	$("#jp_container_<?php echo $bID; ?> .jp-current-time").hide();
+	        },
+	        timeupdate: function(event) {
+	        	$("#jp_container_<?php echo $bID; ?> .jp-time-wrapper").css('left', event.jPlayer.status.currentPercentAbsolute+'%');
+	        }
 		}
 		$.extend(options, extensions);
 

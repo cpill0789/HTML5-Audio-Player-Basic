@@ -20,10 +20,40 @@
 		</div>
 	</div>
 <?php
-	$c = \Page::getCurrentPage();
-	if (!$c->isEditMode()) {
-		echo $script;
-	}
+$c = \Page::getCurrentPage();
+if (!$c->isEditMode()):
 ?>
+<script type="text/javascript">
+    $(function () {
+		var options = <?php echo $options; ?>;
+		var extensions = {
+			ready: function (event) {
+				$(this).jPlayer("setMedia", options.files);
+				if (options.autoPlay) {
+					$(this).jPlayer("play");
+				}
+			},
+			play: function (event) {
+				if (options.pauseOthers) {
+					$(this).jPlayer("pauseOthers");
+				}
+				$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-play").hide();
+				$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-stop").show();
+			},
+		    pause: function(event) {
+		    	$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-play").show();
+				$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-stop").hide();
+	        },
+	        ended: function(event) {
+	        	$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-play").show();
+				$("#jp_container_<?php echo $bID; ?> .jp-controls .jp-stop").hide();
+	        }
+		}
+		$.extend(options, extensions);
+
+		$("#jquery_jplayer_<?php echo $bID; ?>").jPlayer(options);
+	});
+</script>
+<?php endif; ?>
 </div>
 

@@ -18,7 +18,7 @@ if($secondaryfID > 0) {
 .row > div {
 	padding-bottom:10px;
 }
-#metaCategory {
+#titleSource {
 	width:175px;
 	display:inline-block;
 	margin:0 5px;

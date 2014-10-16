@@ -2,11 +2,11 @@
 
 $c = \Page::getCurrentPage();
 
-if ($c->isEditMode()) { ?>
+if ($c->isEditMode()): ?>
 	<div class="ccm-edit-mode-disabled-item" style="width:200px;height:200px;">
 		<div style="padding:20px"><?php echo t('Audio player disabled in edit mode.')?></div>
 	</div>
-<?php } else {	?>
+<?php else:	?>
 <div class="circle_player">
 	<!-- The jPlayer div must not be hidden. Keep it at the root of the body element to avoid any such problems. -->
 	<div id="jquery_jplayer_<?php echo $bID; ?>" class="cp-jplayer"></div>
@@ -30,6 +30,16 @@ if ($c->isEditMode()) { ?>
 			<ul><li><span class="jp-title"></span></li></ul>
 		</div>
 	</div>
-	<?php echo $script; ?>
+<script type="text/javascript">
+$(function () {
+	var options = <?php echo $options; ?>;
+	$.extend(options, { cssSelectorAncestor: '#cp_container_<?php echo $bID; ?>' })
+	var cp = new CirclePlayer(
+		'#jquery_jplayer_<?php echo $bID; ?>',
+		options.files,
+		options
+	);
+});
+</script>
 </div>
-<?php } ?>
+<?php endif; ?>

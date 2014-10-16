@@ -17,10 +17,10 @@ ccmValidateBlockForm = function() { return JPAudioPlayerBlock.validate(); }
 
 $(function(){
 	/* Initialize Title Source Picker */
-	var $select = $("#audioBlock-singleAudio select[name=metaCategory]");
+	var $select = $("#audioBlock-singleAudio select[name=titleSource]");
 
 	var checkTitle = function ($select) {
-		if ($select.val() == 'NONE') {
+		if ($select.val() == 'CUSTOM') {
 			$('#audioBlock-singleAudio #title').show();
 		} else {
 			$('#audioBlock-singleAudio #title').hide();

@@ -2,11 +2,11 @@
 
 $c = \Page::getCurrentPage();
 
-if ($c->isEditMode()) { ?>
+if ($c->isEditMode()): ?>
 	<div class="ccm-edit-mode-disabled-item" style="width:250px; height:175px;">
-		<div style="padding:20px"><?php echo t('Audio player disabled in edit mode.'); ?></div>
+		<div style="padding:20px"><?php echo t('Pink Flag player disabled in edit mode.'); ?></div>
 	</div>
-<?php } else { ?>
+<?php else: ?>
 <div class="pink_flag">
 	<div id="jquery_jplayer_<?php echo $bID; ?>" class="jp-jplayer"></div>
 	<div id="jp_container_<?php echo $bID; ?>" class="jp-audio">
@@ -51,6 +51,26 @@ if ($c->isEditMode()) { ?>
 			</div>
 		</div>
 	</div>
-	<?php echo $script; ?>
+<script type="text/javascript">
+	$(function () {
+		var options = <?php echo $options; ?>;
+		var extensions = {
+			ready: function (event) {
+				$(this).jPlayer("setMedia", options.files);
+				if (options.autoPlay) {
+					$(this).jPlayer("play");
+				}
+			},
+			play: function (event) {
+				if (options.pauseOthers) {
+					$(this).jPlayer("pauseOthers");
+				}
+			}
+		}
+		$.extend(options, extensions);
+
+		$("#jquery_jplayer_<?php echo $bID; ?>").jPlayer(options);
+	});
+</script>
 </div>
-<?php } ?>
+<?php endif; ?>
