@@ -5,6 +5,8 @@ use Concrete\Core\Block\BlockController;
 use File;
 use Loader;
 
+defined('C5_EXECUTE') or die("Access Denied.");
+
 class Controller extends BlockController
 {
 
@@ -43,25 +45,69 @@ class Controller extends BlockController
         );
     }
 
+	private function getFileInfo($f, $fallback = null);
+    {
+        if (!is_object($f)) {
+            return false;
+        }
+
+        $info = array();
+
+        $ext = $this->processExtension($f->getExtension());
+        $info[$ext] = $f->getRelativePath();
+        $info['downloadURL'] = $f->getDownloadURL();
+        $info['title'] = $f->getTitle();
+        $info['description'] = $f->getDescription();
+        $info['formats'] = array($ext);
+        $info['free'] = (bool) $this->free;
+
+        if (is_object($fallback)) {
+            $ext2 = $this->processExtension($fallback->getExtension());
+            $info[$ext2] = $fallback->getRelativePath();
+            $info['formats'][] = $ext2;
+        }
+
+        return $info;
+    }
+
+    private function processExtension($ext) {
+        $ext = strtolower($ext);
+        if ($ext == 'ogg') {
+            $ext  = 'oga';
+        }
+        return $ext;
+    }
+
     public function view()
     {
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('javascript', 'jplayer');
+        $this->requireAsset('css', 'font-awesome');
 
-        $theme = '';
-        $block = $this->getBlockObject();
-        if (is_object($block)) {
-            $theme = $block->getBlockFilename();
-        }
-        if ($theme == '') {
-            $theme = 'default';
-        }
+		$f = File::getByID($this->fID);
+		$fallback = File::getByID($this->secondaryfID);
+		$fileInfo = $this->getFileInfo($f, $fallback);
 
-        if (substr($theme, 0, 6) === 'simple' || substr($theme, 0, 7) === 'default') {
-            $this->requireAsset('css', 'font-awesome');
-        }
+		if ($this->titleSource == 'DESCRIPTION') {
+			$fileInfo['title'] = $fileInfo['description']
+		} elseif ($this->titleSource == 'CUSTOM') {
+			$fileInfo['title'] = $this->title;
+		}
 
-        $this->set('script', $this->getPlayerJavascript($theme));
+		$options = array (
+			'volume' => $this->initialVolume / 100,
+			'autoPlay' => (bool) $this->autoPlay,
+			'loop' => (bool) $this->loopAudio,
+			'pauseOthers' => (bool) $this->pauseOthers,
+			'swfPath' => REL_DIR_PACKAGES . '/html5_audio_player_basic/flash/',
+			'supplied' => implode(', ', $fileInfo['formats']),
+            'wmode' => 'window',
+            'cssSelectorAncestor' => '#jp_container_' . $this->bID,
+            'files' => $fileInfo
+		);
+
+		$json = \Core::make('helper/json');
+		$this->set('options', $json->encode($options));
     }
 
     public function add()
@@ -74,23 +120,7 @@ class Controller extends BlockController
         $data['loopAudio'] = intval($data['loopAudio']);
         $data['autoPlay'] = intval($data['autoPlay']);
         $data['pauseOthers'] = intval($data['pauseOthers']);
-        $data['useMetaTitle'] = intval($data['useMetaTitle']);
         parent::save($data);
-    }
-
-    private function getFileInfo($f)
-    {
-        $fileType = strtolower($f->getExtension());
-
-        if ($fileType == 'ogg') {
-            $fileType = 'oga';
-        }
-
-        $relPath = $f->getRelativePath();
-
-        return array(
-            $fileType => $relPath
-        );
     }
 
     public function getPlayerJavascript($playerType)

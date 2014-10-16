@@ -18,7 +18,7 @@
 			<unsigned />
 			<default value="1" />
 		</field>
-		<field name="metaCategory" type="C" size="50"><default value="NONE" /></field>
+		<field name="titleSource" type="C" size="50"><default value="NONE" /></field>
 
 		<field name="fID" type="I"><unsigned /></field>
 		<field name="secondaryfID" type="I"><unsigned /></field>

@@ -34,12 +34,12 @@ if($secondaryfID > 0) {
 	<div id="audioBlock-singleAudio" class="row">
 		<div class="col-sm-12">
 			<?php
-			echo $form->label('metaCategory', t('Title Source:'));
-			echo $form->select('metaCategory', array(
+			echo $form->label('titleSource', t('Title Source:'));
+			echo $form->select('titleSource', array(
 									'TITLE'=> t('File Title tag'),
 									'DESCRIPTION' => t('File Description tag'),
-									'NONE'=> t('Custom')
-									), $metaCategory);
+									'CUSTOM'=> t('Custom')
+									), $titleSource);
 
 			echo $form->text('title', $title, array('placeholder'=>t('Custom Title'))); ?>
 		</div>

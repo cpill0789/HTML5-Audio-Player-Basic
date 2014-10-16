@@ -46,9 +46,26 @@ defined('C5_EXECUTE') or die("Access Denied."); ?>
 	</div>
 <?php
 	$c = \Page::getCurrentPage();
-	if (!$c->isEditMode()) {
-		echo $script;
-	}
-?>
+	if (!$c->isEditMode()): ?>
+<script type="text/javascript">
+	$(function () {
+
+		var options = <?php echo options; ?>;
+		var extensions = {
+			ready: function (event) {
+				$(this).jPlayer("setMedia", options.files);
+			},
+			play: function (event) {
+				if (options.pauseOthers) {
+					$(this).jPlayer("pauseOthers");
+				}
+			}
+		}
+		$.extend(options, extensions);
+
+		$("#jquery_jplayer_<?php echo $bID; ?>").jPlayer(options);
+	});
+</script>
+<?php endif; ?>
 </div>
 
