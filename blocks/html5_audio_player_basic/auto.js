@@ -1,3 +1,5 @@
+/*
+// Validation is currently broken in 5.7
 var JPAudioPlayerBlock = {
 	validate:function(){
 		var failed=0;
@@ -14,3 +16,4 @@ var JPAudioPlayerBlock = {
 }
 
 ccmValidateBlockForm = function() { return JPAudioPlayerBlock.validate(); }
+*/
