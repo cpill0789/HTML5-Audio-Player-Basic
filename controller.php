@@ -15,7 +15,7 @@ class Controller extends Package
 
     protected $appVersionRequired = '5.7.0.4';
 
-    protected $pkgVersion = '1.9.1';
+    protected $pkgVersion = '1.9.2';
 
     public function getPackageName()
     {
