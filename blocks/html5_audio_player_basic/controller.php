@@ -70,12 +70,15 @@ class Controller extends BlockController
         return $ext;
     }
 
-    public function view()
+	public function registerViewAssets()
     {
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('javascript', 'jplayer');
         $this->requireAsset('css', 'font-awesome');
+    }
 
+    public function view()
+    {
 		$f = File::getByID(intval($this->fID));
 		$fallback = File::getByID(intval($this->secondaryfID));
 
