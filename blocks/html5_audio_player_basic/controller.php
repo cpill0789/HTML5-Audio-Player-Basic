@@ -59,10 +59,9 @@ class Html5AudioPlayerBasicBlockController extends BlockController {
 	}
 
 	public function save($data) {
-		$data['loopAudio'] = intval($data['loopAudio']);
-		$data['autoPlay'] = intval($data['autoPlay']);
-		$data['pauseOthers'] = intval($data['pauseOthers']);
-		$data['useMetaTitle'] = intval($data['useMetaTitle']);
+		$data['loopAudio'] = array_key_exists( 'loopAudio', $data ) ? intval($data['loopAudio']) : 0;
+		$data['autoPlay'] = array_key_exists( 'autoPlay', $data ) ? intval($data['autoPlay']) : 0;
+		$data['pauseOthers'] = array_key_exists( 'pauseOthers', $data ) ? intval($data['pauseOthers']) : 0;
 		parent::save($data);
 	}
 

@@ -4,7 +4,7 @@ $al = Loader::helper('concrete/asset_library');
 $ah = Loader::helper('concrete/interface');
 
 $file = null;
-$secondaryFile = null;
+$secondFile = null;
 
 if($fID > 0) {
 	$file = File::getByID($fID);
