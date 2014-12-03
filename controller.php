@@ -5,7 +5,7 @@
 
 		protected $pkgHandle = 'html5_audio_player_basic';
 		protected $appVersionRequired = '5.5.1';
-		protected $pkgVersion = '1.1.5';
+		protected $pkgVersion = '1.1.6';
 
 		public function getPackageDescription() {
 			return t("Installs the HTML5 Audio Player Basic block.");
