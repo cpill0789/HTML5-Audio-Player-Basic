@@ -40,7 +40,7 @@ class Controller extends Package
         $al = AssetList::getInstance();
 
         $al->register('javascript', 'jplayer', 'js/jplayer.min.js', array(
-            'version' => '2.7.0',
+            'version' => '2.9.2',
             'position' => Asset::ASSET_POSITION_FOOTER,
             'minify' => false,
             'combine' => false
