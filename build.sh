@@ -8,6 +8,7 @@ cp -r js ./build/html5_audio_player_basic/
 cp controller.php ./build/html5_audio_player_basic/
 cp icon.png ./build/html5_audio_player_basic/
 cp LICENSE.TXT ./build/html5_audio_player_basic/
+cp CHANGELOG ./build/html5_audio_player_basic/
 
 find ./build/html5_audio_player_basic/ -name '*.DS_Store' -type f -delete
 find ./build/html5_audio_player_basic/ -name '*.gitignore' -type f -delete

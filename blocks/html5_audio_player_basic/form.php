@@ -114,3 +114,8 @@ $(function(){
     	</div>
 	</div>
 </fieldset>
+<hr />
+<div>
+<p><?= t('Purchase %sHTML5 Audio Player Pro%s for player color and interface customization, playlist support, and more themes.', 
+'<a href="//www.concrete5.org/marketplace/addons/html5-audio-player-pro1" target="_blank">', '</a>'); ?></p>
+</div>
