@@ -13,9 +13,9 @@ class Controller extends Package
 
     protected $pkgHandle = 'html5_audio_player_basic';
 
-    protected $appVersionRequired = '5.7.1';
+    protected $appVersionRequired = '5.7.5';
 
-    protected $pkgVersion = '2.0.4';
+    protected $pkgVersion = '2.0.5';
 
     public function getPackageName()
     {

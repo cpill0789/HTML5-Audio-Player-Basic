@@ -70,7 +70,7 @@ class Controller extends BlockController
         return $ext;
     }
 
-	public function registerViewAssets()
+	public function registerViewAssets($outputContent = '')
     {
         $this->requireAsset('javascript', 'jquery');
         $this->requireAsset('javascript', 'jplayer');
