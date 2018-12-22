@@ -49,7 +49,6 @@ defined('C5_EXECUTE') or die("Access Denied."); ?>
 	if (!$c->isEditMode()): ?>
 <script type="text/javascript">
 	$(function () {
-
 		var options = <?php echo $options; ?>;
 		var extensions = {
 			ready: function (event) {
@@ -64,15 +63,16 @@ defined('C5_EXECUTE') or die("Access Denied."); ?>
 				}
 				$("#jp_container_<?php echo $bID; ?> .jp-current-time").fadeIn();
 			},
-		    pause: function(event) {
-		    	$("#jp_container_<?php echo $bID; ?> .jp-current-time").fadeOut();
-	        },
-	        ended: function(event) {
-	        	$("#jp_container_<?php echo $bID; ?> .jp-current-time").hide();
-	        },
-	        timeupdate: function(event) {
-	        	$("#jp_container_<?php echo $bID; ?> .jp-time-wrapper").css('left', event.jPlayer.status.currentPercentAbsolute+'%');
-	        }
+			pause: function(event) {
+				$("#jp_container_<?php echo $bID; ?> .jp-current-time").fadeOut();
+			},
+			ended: function(event) {
+				$("#jp_container_<?php echo $bID; ?> .jp-current-time").hide();
+			},
+			timeupdate: function(event) {
+				$("#jp_container_<?php echo $bID; ?> .jp-time-wrapper")
+					.css('left', event.jPlayer.status.currentPercentAbsolute+'%');
+			}
 		}
 		$.extend(options, extensions);
 
