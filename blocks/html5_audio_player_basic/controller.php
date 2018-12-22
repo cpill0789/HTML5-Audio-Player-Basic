@@ -17,6 +17,7 @@ class Controller extends BlockController
     protected $btCacheBlockOutput = true;
     protected $btCacheBlockOutputOnPost = true;
     protected $btCacheBlockOutputForRegisteredUsers = false;
+    protected $btCacheBlockOutputLifetime = 7200;
     protected $btDefaultSet = 'multimedia';
 
     public function getBlockTypeName()
@@ -88,6 +89,10 @@ class Controller extends BlockController
 		} elseif ($this->titleSource == 'CUSTOM') {
 			$fileInfo['title'] = $this->title;
 		}
+
+        if (!$fileInfo['formats']) {
+            $fileInfo['formats'] = Array();
+        }
 
 		$options = array (
 			'volume' => $this->initialVolume / 100,
